@@ -10,9 +10,9 @@ Descrição:
 
 O objetivo deste aplicativo móvel é auxiliar estudantes na organização de seus estudos e no desenvolvimento de hábitos de estudo eficazes. Ele fornecerá recursos e funcionalidades que permitirão aos estudantes planejar, acompanhar e otimizar seu tempo de estudo, além de fornecer ferramentas úteis para facilitar o aprendizado.
 
-##Requisitos
+## Requisitos
 
-###3.1 Requisitos Funcionais
+### 3.1 Requisitos Funcionais
 
 3.1.1 [RF001] Tela de login:
 	(Essencial)
@@ -89,7 +89,7 @@ Os usuários devem poder restringir a edição do cronômetro com senhas.
 
 
 
-###3.2 Requisitos Não Funcionais
+### 3.2 Requisitos Não Funcionais
 
 3.2.1 [NF001] Linguagem e IDE utilizadas:
 (Essencial)
