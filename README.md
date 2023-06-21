@@ -2,10 +2,8 @@
 
 Alunos :
 
-Joao Paulo da Silva Dantas
-
-Marcelo Soares Antunes
-
+Joao Paulo da Silva Dantas<br>
+Marcelo Soares Antunes<br>
 Ryan Breda Santos
 
 Descrição:
