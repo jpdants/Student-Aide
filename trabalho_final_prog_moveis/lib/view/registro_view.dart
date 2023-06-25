@@ -37,7 +37,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           gradient: LinearGradient(
             colors: [
             AppColors.kPrimaryColor,
-            AppColors.kSecondaryColor,
+            AppColors.kTextStyle,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

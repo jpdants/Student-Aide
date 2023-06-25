@@ -32,7 +32,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
             AppColors.kPrimaryColor,
-            AppColors.kSecondaryColor,
+            AppColors.kTextStyle,
           ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: SingleChildScrollView(
               child: Padding(
