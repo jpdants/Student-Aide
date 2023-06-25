@@ -15,6 +15,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
+  TextEditingController _phoneNumberTextController = TextEditingController(); // Novo controller para o número de celular
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,58 +30,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
       body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [
-            Colors.red.shade400,
-            Colors.purple,
-            Colors.blue.shade800,
-          ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
-          child: SingleChildScrollView(
-              child: Padding(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.red.shade400,
+              Colors.purple,
+              Colors.blue.shade800,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
             padding: EdgeInsets.fromLTRB(20, 120, 20, 0),
             child: Column(
               children: <Widget>[
                 const SizedBox(
                   height: 20,
                 ),
-                /*reusableTextField("Nome de Usuário", Icons.person_outline, false,
-                    _userNameTextController),
-                const SizedBox(
-                  height: 20,
-                ), */
-                reusableTextField(
-                    "Email", Icons.person_outline, false, _emailTextController),
+                // reusableTextField("Nome de Usuário", Icons.person_outline, false, _userNameTextController),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Senha", Icons.lock_outlined, true,
-                    _passwordTextController),
+                reusableTextField("Email", Icons.person_outline, false, _emailTextController),
                 const SizedBox(
                   height: 20,
                 ),
-                reusableTextField("Confirmar Senha", Icons.lock_outlined, true,
-                    _passwordTextController),
+                reusableTextField("Senha", Icons.lock_outlined, true, _passwordTextController),
+                const SizedBox(
+                  height: 20,
+                ),
+                reusableTextField("Confirmar Senha", Icons.lock_outlined, true, _passwordTextController),
+                const SizedBox(
+                  height: 20,
+                ),
+                reusableTextField("Número de Celular", Icons.phone, false, _phoneNumberTextController), // Campo de input para o número de celular
                 const SizedBox(
                   height: 20,
                 ),
                 firebaseUIButton(context, "Cadastrar", () {
-                  FirebaseAuth.instance
-                      .createUserWithEmailAndPassword(
-                          email: _emailTextController.text,
-                          password: _passwordTextController.text)
-                      .then((value) {
+                  FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: _emailTextController.text,
+                    password: _passwordTextController.text,
+                  ).then((value) {
                     print("Parabéns! Seu Cadastro foi realizado com sucesso");
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
                   });
                 }),
               ],
             ),
-          ))),
+          ),
+        ),
+      ),
     );
   }
 }
