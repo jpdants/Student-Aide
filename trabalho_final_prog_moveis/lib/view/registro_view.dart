@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_prog_moveis/components/teste_field_password.dart';
+import 'package:trabalho_final_prog_moveis/constants/app_colors.dart';
 import 'package:trabalho_final_prog_moveis/service/botao_firebase.dart';
 import 'package:trabalho_final_prog_moveis/view/login_view.dart';
 
@@ -35,9 +36,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.red.shade400,
-              Colors.purple,
-              Colors.blue.shade800,
+            AppColors.kPrimaryColor,
+            AppColors.kSecondaryColor,
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
