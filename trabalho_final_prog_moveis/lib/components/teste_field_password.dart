@@ -29,3 +29,12 @@ TextField reusableTextField(String text, IconData? icon, bool isPasswordType,
         : TextInputType.emailAddress,
   );
 }
+Image logo(String logo) {
+  return Image.asset(
+    logo,
+    fit: BoxFit.fitWidth,
+    width: 125,
+    height: 125,
+    
+  );
+}

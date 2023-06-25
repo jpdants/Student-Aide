@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_prog_moveis/constants/app_colors.dart';
 import 'package:trabalho_final_prog_moveis/view/registro_view.dart';
 import 'package:trabalho_final_prog_moveis/view/tela_branca.dart';
 
+import '../components/teste_field_password.dart';
 import 'esqueceu_senha.dart';
-
+//classe LoginPage
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -59,7 +61,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        backgroundColor: AppColors.kPrimaryColor,
+        title: Text('Realize seu login'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -69,6 +72,10 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              logo("lib/assets/img/logo.png"),
+              const SizedBox(
+                  height: 80,
+                ),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Email',
@@ -106,10 +113,24 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               SizedBox(height: 16.0),
+              // ElevatedButton(
+              //   onPressed: _submitForm,
+              //   child: Text('Login'),
+              // ),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Login'),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16.0,
+                  ),
+                ),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(AppColors.kPrimaryColor),
+                ),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
