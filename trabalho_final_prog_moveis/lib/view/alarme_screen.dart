@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../constants/app_colors.dart';
+
 class AlarmScreen extends StatefulWidget {
   const AlarmScreen({super.key});
 
@@ -47,7 +49,31 @@ class _AlarmScreenState extends State<AlarmScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Alarme'),
+        backgroundColor: AppColors.kPrimaryColor,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [            
+            const Text(
+              'Alarme',
+              style: TextStyle(
+              fontFamily: 'avenir',
+              color: AppColors.kTextStyle,
+              fontSize: 24
+              ),
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.person_2_outlined
+              ),
+              onPressed: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => const Login()),
+              //   );
+              },
+            ),
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

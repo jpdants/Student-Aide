@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_prog_moveis/view/cronometro.dart';
+//import 'package:trabalho_final_prog_moveis/view/cronometro.dart';
 import 'package:trabalho_final_prog_moveis/view/home_page.dart';
 
 void main() => runApp(const MyApp());

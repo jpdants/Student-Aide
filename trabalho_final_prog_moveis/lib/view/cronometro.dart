@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import '../constants/app_colors.dart';
 import 'alarme_screen.dart';
 
 class TimerScreen extends StatefulWidget {
@@ -69,23 +70,35 @@ class _TimerScreenState extends State<TimerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       appBar: AppBar(
+        backgroundColor: AppColors.kPrimaryColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Cronômetro'),
+          children: [            
+            const Text(
+              'Cronômetro',
+              style: TextStyle(
+              fontFamily: 'avenir',
+              color: AppColors.kTextStyle,
+              fontSize: 24
+              ),
+            ),
             IconButton(
-              icon: const Icon(Icons.alarm),
+              icon: const Icon(
+                Icons.person_2_outlined
+              ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const AlarmScreen()),
-                );
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => const Login()),
+              //   );
               },
             ),
           ],
         ),
       ),
+      
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -102,14 +115,21 @@ class _TimerScreenState extends State<TimerScreen> {
                   onPressed: _toggleTimer,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    backgroundColor: AppColors.kPrimaryColor,
                   ),
-                  child: Text(_isRunning ? 'Pare' : 'Comece', style: const TextStyle(fontSize: 20)),
+                  child: Text(
+                    _isRunning ? 'Pare' : 'Comece',
+                    style: const TextStyle(
+                      fontSize: 20,
+                    )
+                  ),
                 ),
                 const SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: _resetTimer,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    backgroundColor: AppColors.kPrimaryColor
                   ),
                   child: const Text('Recomece', style: TextStyle(fontSize: 20)),
                 ),

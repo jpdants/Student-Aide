@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:trabalho_final_prog_moveis/constants/app_colors.dart';
+import 'package:trabalho_final_prog_moveis/view/alarme_screen.dart';
 import 'package:trabalho_final_prog_moveis/view/clock_view.dart';
+
+import 'cronometro.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColors.kPrimaryColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: [            
             const Text(
               'Home',
               style: TextStyle(
@@ -30,7 +33,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.person_2_outlined),
+              icon: const Icon(
+                Icons.person_2_outlined
+              ),
               onPressed: () {
               //   Navigator.push(
               //     context,
@@ -47,8 +52,8 @@ class _HomePageState extends State<HomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              buildElevatedButton('Alarme', Icons.access_alarm),
-              buildElevatedButton('Cronômetro', Icons.timer)
+              buildElevatedButton('Alarme', Icons.access_alarm, const AlarmScreen()),
+              buildElevatedButton('Cronômetro', Icons.timer, const TimerScreen())
             ],
           ),
           const VerticalDivider(
@@ -152,13 +157,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Padding buildElevatedButton(String title, IconData icon) {
+  Padding buildElevatedButton(String title, IconData icon, Widget screen) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => screen),
+          );
+        },
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.kSecondaryColor, // Defina a cor de fundo desejada aqui
+          backgroundColor: AppColors.kSecondaryColor,
         ),
         child: Column(
           children: <Widget>[
