@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'alarme_screen.dart';
 
 class TimerScreen extends StatefulWidget {
+  const TimerScreen({super.key});
+
   @override
   _TimerScreenState createState() => _TimerScreenState();
 }
@@ -25,7 +27,7 @@ class _TimerScreenState extends State<TimerScreen> {
       _isRunning = true;
     });
 
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _seconds++;
       });
@@ -68,15 +70,20 @@ class _TimerScreenState extends State<TimerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timer'),
-        leading: IconButton(
-          icon: Icon(Icons.alarm),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AlarmScreen()),
-            );
-          },
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text('Cronômetro'),
+            IconButton(
+              icon: const Icon(Icons.alarm),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const AlarmScreen()),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: Center(
@@ -85,26 +92,26 @@ class _TimerScreenState extends State<TimerScreen> {
           children: [
             Text(
               _formatTime(_seconds),
-              style: TextStyle(fontSize: 80),
+              style: const TextStyle(fontSize: 80),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  child: Text(_isRunning ? 'Pare' : 'Comece', style: TextStyle(fontSize: 20)),
                   onPressed: _toggleTimer,
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   ),
+                  child: Text(_isRunning ? 'Pare' : 'Comece', style: const TextStyle(fontSize: 20)),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 ElevatedButton(
-                  child: Text('Recomece', style: TextStyle(fontSize: 20)),
                   onPressed: _resetTimer,
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   ),
+                  child: const Text('Recomece', style: TextStyle(fontSize: 20)),
                 ),
               ],
             ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class AlarmScreen extends StatefulWidget {
+  const AlarmScreen({super.key});
+
   @override
   _AlarmScreenState createState() => _AlarmScreenState();
 }
@@ -10,6 +11,8 @@ class AlarmScreen extends StatefulWidget {
 class _AlarmScreenState extends State<AlarmScreen> {
   TimeOfDay _selectedTime = TimeOfDay.now();
   String _alarmName = '';
+  int? selectedHour;
+  int? selectedMinute;
 
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? pickedTime = await showTimePicker(
@@ -20,6 +23,8 @@ class _AlarmScreenState extends State<AlarmScreen> {
     if (pickedTime != null) {
       setState(() {
         _selectedTime = pickedTime;
+        selectedHour = _selectedTime.hour;
+        selectedMinute = _selectedTime.minute;
       });
     }
   }
@@ -30,20 +35,27 @@ class _AlarmScreenState extends State<AlarmScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    selectedHour = _selectedTime.hour;
+    selectedMinute = _selectedTime.minute;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final timeFormat = DateFormat('hh:mm a');
+    final timeFormat = DateFormat('HH:mm');
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Set Alarm'),
+        title: const Text('Alarme'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Select Time:',
+            const Text(
+              'Selecione o tempo:',
               style: TextStyle(fontSize: 18),
             ),
             ListTile(
@@ -54,17 +66,17 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 _selectedTime.hour,
                 _selectedTime.minute,
               ))),
-              trailing: Icon(Icons.keyboard_arrow_down),
+              trailing: const Icon(Icons.keyboard_arrow_down),
               onTap: () => _selectTime(context),
             ),
-            SizedBox(height: 20),
-            Text(
-              'Alarm Name:',
+            const SizedBox(height: 20),
+            const Text(
+              'Nome do Alarme',
               style: TextStyle(fontSize: 18),
             ),
             TextField(
-              decoration: InputDecoration(
-                hintText: 'Enter alarm name',
+              decoration: const InputDecoration(
+                hintText: 'Coloque o nome do alarme',
               ),
               onChanged: (value) {
                 setState(() {
@@ -72,20 +84,20 @@ class _AlarmScreenState extends State<AlarmScreen> {
                 });
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: _saveAlarm,
-                  child: Text('Save Alarm'),
+                  child: const Text('Salvar'),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Cancel'),
+                  child: const Text('Cancelar'),
                 ),
               ],
             ),
