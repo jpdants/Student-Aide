@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trabalho_final_prog_moveis/view/login_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:trabalho_final_prog_moveis/view/registro_view.dart';
 import 'firebase_options.dart';
 
 //void main() => runApp(MyApp());

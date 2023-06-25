@@ -55,32 +55,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // void _register() {
-  //    Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => RegisterPage()),
-  //   );
-  // }
-  void _register() async {
-  try {
-    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: _email,
-      password: _password,
+  void _register() {
+     Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUpScreen()),
     );
-    // Registro bem-sucedido, faça o que for necessário aqui
-    print('Registro bem-sucedido: ${userCredential.user}');
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      print('A senha fornecida é muito fraca.');
-    } else if (e.code == 'email-already-in-use') {
-      print('O endereço de e-mail já está em uso por outra conta.');
-    } else {
-      print('Erro durante o registro: ${e.message}');
-    }
-  } catch (e) {
-    print('Erro durante o registro: $e');
   }
-}
 
   @override
   Widget build(BuildContext context) {
