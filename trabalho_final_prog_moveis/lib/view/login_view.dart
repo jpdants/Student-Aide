@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_prog_moveis/view/registro_view.dart';
+import 'package:trabalho_final_prog_moveis/view/tela_branca.dart';
 
 import 'esqueceu_senha.dart';
 
@@ -13,11 +15,38 @@ class _LoginPageState extends State<LoginPage> {
   String _email = '';
   String _password = '';
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Do login here
+  // void _submitForm() {
+  //   if (_formKey.currentState!.validate()) {
+  //     // Do login here
+  //   }
+  // }
+
+  void _submitForm() async {
+  if (_formKey.currentState!.validate()) {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _email,
+        password: _password,
+      );
+      // Login bem-sucedido, navegue para a página de boas-vindas
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => WelcomePage()),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('Usuário não encontrado.');
+      } else if (e.code == 'wrong-password') {
+        print('Senha incorreta.');
+      } else {
+        print('Erro durante o login: ${e.message}');
+      }
+    } catch (e) {
+      print('Erro durante o login: $e');
     }
   }
+}
+
 
   void _forgotPassword() {
     Navigator.push(
@@ -26,12 +55,32 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _register() {
-     Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => RegisterPage()),
+  // void _register() {
+  //    Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => RegisterPage()),
+  //   );
+  // }
+  void _register() async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: _email,
+      password: _password,
     );
+    // Registro bem-sucedido, faça o que for necessário aqui
+    print('Registro bem-sucedido: ${userCredential.user}');
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      print('A senha fornecida é muito fraca.');
+    } else if (e.code == 'email-already-in-use') {
+      print('O endereço de e-mail já está em uso por outra conta.');
+    } else {
+      print('Erro durante o registro: ${e.message}');
+    }
+  } catch (e) {
+    print('Erro durante o registro: $e');
   }
+}
 
   @override
   Widget build(BuildContext context) {
