@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:trabalho_final_prog_moveis/view/registro_view.dart';
 import 'firebase_options.dart';
 
-//void main() => runApp(MyApp());
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
