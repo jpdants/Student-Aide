@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 
 class PreencherCardTela extends StatefulWidget {
-  const PreencherCardTela({super.key});
-
   @override
-
-  // ignore: library_private_types_in_public_api
   _PreencherCardTelaState createState() => _PreencherCardTelaState();
 }
 
 class _PreencherCardTelaState extends State<PreencherCardTela> {
   String selectedDiscipline = 'Matemática';
   TextEditingController annotationController = TextEditingController();
-  DateTime dataCriacao =
-      DateTime.now(); // Data de criação como um objeto DateTime
+  DateTime dataCriacao = DateTime.now(); // Data de criação como um objeto DateTime
 
   void saveAnnotation() {
     String discipline = selectedDiscipline;
     String annotation = annotationController.text;
+    String createdAt = dataCriacao.toIso8601String(); // Converter a data para uma string no formato ISO 8601
 
     Map<String, dynamic> anotacao = {
       'discipline': discipline,
       'annotation': annotation,
-      'dataCriacao': dataCriacao, // Usar o objeto DateTime de data de criação
+      'created_at': createdAt, // Usar a string de data de criação
     };
 
     Navigator.pop(context, anotacao); // Retornar a anotação como resultado
@@ -83,3 +79,4 @@ class _PreencherCardTelaState extends State<PreencherCardTela> {
     );
   }
 }
+

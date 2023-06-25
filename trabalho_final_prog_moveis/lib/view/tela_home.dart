@@ -1,10 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
+import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../components/botton_add_notacao.dart';
 import '../components/tag_classificacao.dart';
 import '../constants/app_colors.dart';
-import '../model/preencher_card_tela.dart';
+import 'preencher_card_tela.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,13 +15,48 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late Database _database;
   List<Map<String, dynamic>> anotacoes = [];
 
   String? selectedTag;
 
-  void adicionarAnotacao(Map<String, dynamic> anotacao) {
+  @override
+  void initState() {
+    super.initState();
+    _initializeDatabase();
+  }
+
+  Future<void> _initializeDatabase() async {
+    final Directory appDirectory = await getApplicationDocumentsDirectory();
+    final String databasePath = path.join(appDirectory.path, 'notes.db');
+    _database = await openDatabase(databasePath, version: 1,
+        onCreate: (Database db, int version) async {
+      await db.execute(
+          'CREATE TABLE notes (id INTEGER PRIMARY KEY, discipline TEXT, annotation TEXT, created_at TEXT)');
+    });
+
+    await _loadAnotacoes();
+  }
+
+  Future<void> _loadAnotacoes() async {
+    final List<Map<String, dynamic>> anotacoes = await _database.query('notes');
     setState(() {
-      anotacoes.add(anotacao);
+      this.anotacoes = anotacoes;
+    });
+  }
+
+  Future<void> _adicionarAnotacao(Map<String, dynamic> anotacao) async {
+    final int insertedId = await _database.insert('notes', anotacao);
+
+    final Map<String, dynamic> newAnotacao = {
+      'id': insertedId,
+      'discipline': anotacao['discipline'],
+      'annotation': anotacao['annotation'],
+      'created_at': anotacao['created_at'],
+    };
+
+    setState(() {
+      anotacoes.add(newAnotacao);
     });
   }
 
@@ -29,7 +67,6 @@ class _HomePageState extends State<HomePage> {
 
     Map<String, List<Map<String, dynamic>>> tagLists = {};
 
-    // Generate tag-specific lists
     anotacoes.forEach((anotacao) {
       if (tagLists[anotacao['discipline']] == null) {
         tagLists[anotacao['discipline']] = [];
@@ -66,12 +103,12 @@ class _HomePageState extends State<HomePage> {
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const PreencherCardTela(),
+                          builder: (context) => PreencherCardTela(),
                         ),
                       );
 
                       if (result != null) {
-                        adicionarAnotacao(result);
+                        _adicionarAnotacao(result);
                       }
                     },
                   ),
@@ -81,12 +118,18 @@ class _HomePageState extends State<HomePage> {
               DropdownButton(
                 hint: const Text('Selecione uma disciplina'),
                 value: selectedTag,
-                items: tagList.map((tag) {
-                  return DropdownMenuItem(
-                    value: tag,
-                    child: Text(tag),
-                  );
-                }).toList(),
+                items: <DropdownMenuItem>[
+                  DropdownMenuItem(
+                    value: null,
+                    child: const Text('Todas as disciplinas'),
+                  ),
+                  ...tagList.map((tag) {
+                    return DropdownMenuItem(
+                      value: tag,
+                      child: Text(tag),
+                    );
+                  }).toList(),
+                ],
                 onChanged: (value) {
                   setState(() {
                     selectedTag = value as String?;
@@ -118,22 +161,14 @@ class _HomePageState extends State<HomePage> {
                             style: TextStyle(fontSize: 18),
                           ),
                         ),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          itemCount: tagAnotacoes?.length,
-                          itemBuilder: (context, index) {
-                            final anotacao = tagAnotacoes?[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: AnotacaoWidget(
-                                descricao: anotacao?['annotation'],
-                                dataCriacao: anotacao?['dataCriacao'],
-                                tags: [anotacao?['discipline']],
-                              ),
-                            );
-                          },
-                        ),
+                        ...tagAnotacoes!.map((anotacao) {
+                          return Card(
+                            child: ListTile(
+                              title: Text(anotacao['annotation']),
+                              subtitle: Text(anotacao['created_at']),
+                            ),
+                          );
+                        }).toList(),
                         const Divider()
                       ],
                     );
