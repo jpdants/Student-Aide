@@ -5,7 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../components/botton_add_notacao.dart';
-import '../components/tag_classificacao.dart';
+
 import '../constants/app_colors.dart';
 import 'preencher_card_tela.dart';
 
@@ -103,7 +103,11 @@ class _HomePageState extends State<HomePage> {
                       final result = await Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PreencherCardTela(),
+                          builder: (context) => PreencherCardTela(
+                              adicionarAnotacao:
+                                  (Map<String, dynamic> anotacao) {
+                            _adicionarAnotacao(anotacao);
+                          }),
                         ),
                       );
 
@@ -163,13 +167,24 @@ class _HomePageState extends State<HomePage> {
                         ),
                         ...tagAnotacoes!.map((anotacao) {
                           return Card(
+                            elevation:
+                                2, // Adicione uma elevação para sombreamento
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 4,
+                              horizontal: 8,
+                            ),
                             child: ListTile(
-                              title: Text(anotacao['annotation']),
+                              title: Text(
+                                anotacao['annotation'],
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                               subtitle: Text(anotacao['created_at']),
                             ),
                           );
                         }).toList(),
-                        const Divider()
                       ],
                     );
                   },

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_prog_moveis/view/tela_home.dart';
 
 class PreencherCardTela extends StatefulWidget {
+  final void Function(Map<String, dynamic>) adicionarAnotacao;
+
+  const PreencherCardTela({required this.adicionarAnotacao});
+
   @override
   _PreencherCardTelaState createState() => _PreencherCardTelaState();
 }
@@ -8,20 +13,25 @@ class PreencherCardTela extends StatefulWidget {
 class _PreencherCardTelaState extends State<PreencherCardTela> {
   String selectedDiscipline = 'Matemática';
   TextEditingController annotationController = TextEditingController();
-  DateTime dataCriacao = DateTime.now(); // Data de criação como um objeto DateTime
+  DateTime dataCriacao = DateTime.now();
 
   void saveAnnotation() {
     String discipline = selectedDiscipline;
     String annotation = annotationController.text;
-    String createdAt = dataCriacao.toIso8601String(); // Converter a data para uma string no formato ISO 8601
+    String createdAt = dataCriacao.toIso8601String();
 
     Map<String, dynamic> anotacao = {
       'discipline': discipline,
       'annotation': annotation,
-      'created_at': createdAt, // Usar a string de data de criação
+      'created_at': createdAt,
     };
 
-    Navigator.pop(context, anotacao); // Retornar a anotação como resultado
+    widget.adicionarAnotacao(anotacao);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()), // Substitui a rota atual pela HomePage
+    );
   }
 
   @override
@@ -53,7 +63,6 @@ class _PreencherCardTelaState extends State<PreencherCardTela> {
                 'História',
                 'Geografia',
                 'Ciências',
-                // Adicione as disciplinas desejadas aqui
               ].map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
@@ -79,4 +88,3 @@ class _PreencherCardTelaState extends State<PreencherCardTela> {
     );
   }
 }
-
