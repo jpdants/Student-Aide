@@ -6,7 +6,7 @@ import 'package:trabalho_final_prog_moveis/view/tela_branca.dart';
 
 import '../components/teste_field_password.dart';
 import 'esqueceu_senha.dart';
-
+//classe LoginPage
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
