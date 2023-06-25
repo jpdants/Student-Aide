@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'gradiente_daltonico.dart';
 import 'login_view.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -30,7 +31,7 @@ class WelcomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => ColorAccessibilityScreen()),
                 );
               },
               child: Text('Voltar ao Login'),
