@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
-  Color _highlightColor = Colors.blue;
+  Color _highlightColor = Color.fromRGBO(47, 209, 197, 1);
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {

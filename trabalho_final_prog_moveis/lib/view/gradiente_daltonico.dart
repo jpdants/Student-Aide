@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class ColorAccessibilityScreen extends StatefulWidget {
   @override
-  _ColorAccessibilityScreenState createState() => _ColorAccessibilityScreenState();
+  _ColorAccessibilityScreenState createState() =>
+      _ColorAccessibilityScreenState();
 }
 
 class _ColorAccessibilityScreenState extends State<ColorAccessibilityScreen> {
@@ -36,14 +37,19 @@ class _ColorAccessibilityScreenState extends State<ColorAccessibilityScreen> {
                 runSpacing: 20,
                 children: [
                   ColorOption(
-                    color: Colors.red,
-                    isSelected: _selectedColor == Colors.red,
-                    onTap: () => _selectColor(Colors.red),
+                    color: Colors.black,
+                    isSelected: _selectedColor == Colors.black,
+                    onTap: () => _selectColor(Colors.black),
                   ),
                   ColorOption(
-                    color: Colors.green,
-                    isSelected: _selectedColor == Colors.green,
-                    onTap: () => _selectColor(Colors.green),
+                    color: Colors.white,
+                    isSelected: _selectedColor == Colors.white,
+                    onTap: () => _selectColor(Colors.white),
+                  ),
+                  ColorOption(
+                    color: Colors.blue,
+                    isSelected: _selectedColor == Colors.blue,
+                    onTap: () => _selectColor(Colors.blue),
                   ),
                   ColorOption(
                     color: Colors.yellow,
@@ -51,19 +57,19 @@ class _ColorAccessibilityScreenState extends State<ColorAccessibilityScreen> {
                     onTap: () => _selectColor(Colors.yellow),
                   ),
                   ColorOption(
-                    color: Colors.purple,
-                    isSelected: _selectedColor == Colors.purple,
-                    onTap: () => _selectColor(Colors.purple),
+                    color: Colors.green,
+                    isSelected: _selectedColor == Colors.green,
+                    onTap: () => _selectColor(Colors.green),
+                  ),
+                  ColorOption(
+                    color: Colors.red,
+                    isSelected: _selectedColor == Colors.red,
+                    onTap: () => _selectColor(Colors.red),
                   ),
                   ColorOption(
                     color: Colors.orange,
                     isSelected: _selectedColor == Colors.orange,
                     onTap: () => _selectColor(Colors.orange),
-                  ),
-                  ColorOption(
-                    color: Colors.teal,
-                    isSelected: _selectedColor == Colors.teal,
-                    onTap: () => _selectColor(Colors.teal),
                   ),
                 ],
               ),
@@ -77,9 +83,12 @@ class _ColorAccessibilityScreenState extends State<ColorAccessibilityScreen> {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(horizontal: 40, vertical: 16),
                   ),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(_selectedColor),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
                 child: Text(
@@ -120,7 +129,8 @@ class ColorOption extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,
-          border: Border.all(color: isSelected ? Colors.black : Colors.transparent, width: 2),
+          border: Border.all(
+              color: isSelected ? Colors.black : Colors.transparent, width: 2),
           boxShadow: isSelected
               ? [
                   BoxShadow(
