@@ -1,86 +1,92 @@
 import 'package:flutter/material.dart';
-import 'package:trabalho_final_prog_moveis/view/tela_home.dart';
 
 class PreencherCardTela extends StatefulWidget {
-  final void Function(Map<String, dynamic>) adicionarAnotacao;
+  final Function(Map<String, dynamic>) adicionarAnotacao;
+  final Function(Map<String, dynamic>, Function(Map<String, dynamic>))
+      editarAnotacao;
+  final Map<String, dynamic>? anotacao;
 
-  const PreencherCardTela({required this.adicionarAnotacao});
+  PreencherCardTela({
+    required this.adicionarAnotacao,
+    required this.editarAnotacao,
+    this.anotacao,
+  });
 
   @override
   _PreencherCardTelaState createState() => _PreencherCardTelaState();
 }
 
 class _PreencherCardTelaState extends State<PreencherCardTela> {
-  String selectedDiscipline = 'Matemática';
-  TextEditingController annotationController = TextEditingController();
-  DateTime dataCriacao = DateTime.now();
+  late TextEditingController _disciplinaController;
+  late TextEditingController _anotacaoController;
 
-  void saveAnnotation() {
-    String discipline = selectedDiscipline;
-    String annotation = annotationController.text;
-    String createdAt = dataCriacao.toIso8601String();
-
-    Map<String, dynamic> anotacao = {
-      'discipline': discipline,
-      'annotation': annotation,
-      'created_at': createdAt,
-    };
-
-    widget.adicionarAnotacao(anotacao);
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => HomePage()), // Substitui a rota atual pela HomePage
-    );
+  @override
+  void initState() {
+    super.initState();
+    _disciplinaController = TextEditingController(
+        text: widget.anotacao != null ? widget.anotacao!['discipline'] : '');
+    _anotacaoController = TextEditingController(
+        text: widget.anotacao != null ? widget.anotacao!['annotation'] : '');
   }
 
   @override
   void dispose() {
-    annotationController.dispose();
+    _disciplinaController.dispose();
+    _anotacaoController.dispose();
     super.dispose();
+  }
+
+  void _salvarAnotacao() {
+    final discipline = _disciplinaController.text.trim();
+    final annotation = _anotacaoController.text.trim();
+
+    if (discipline.isNotEmpty && annotation.isNotEmpty) {
+      final anotacao = {
+        'discipline': discipline,
+        'annotation': annotation,
+        'created_at': DateTime.now().toString(),
+      };
+
+      if (widget.anotacao != null) {
+        widget.editarAnotacao(anotacao, widget.adicionarAnotacao);
+      } else {
+        widget.adicionarAnotacao(anotacao);
+      }
+
+      Navigator.pop(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Preencher Card'),
+        title:
+            Text(widget.anotacao != null ? 'Editar Anotação' : 'Nova Anotação'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            DropdownButton<String>(
-              value: selectedDiscipline,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedDiscipline = newValue!;
-                });
-              },
-              items: <String>[
-                'Matemática',
-                'História',
-                'Geografia',
-                'Ciências',
-              ].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 16),
             TextField(
-              controller: annotationController,
-              decoration: const InputDecoration(
-                labelText: 'Anotação',
+              controller: _disciplinaController,
+              decoration: InputDecoration(
+                labelText: 'Disciplina',
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
+            TextField(
+              controller: _anotacaoController,
+              decoration: InputDecoration(
+                labelText: 'Anotação',
+              ),
+              maxLines: null,
+            ),
+            SizedBox(height: 16),
             ElevatedButton(
-              onPressed: saveAnnotation,
-              child: const Text('Salvar'),
+              onPressed: _salvarAnotacao,
+              child: Text(widget.anotacao != null ? 'Salvar' : 'Adicionar'),
             ),
           ],
         ),

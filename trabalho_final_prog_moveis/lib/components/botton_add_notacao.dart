@@ -13,7 +13,7 @@ class AddPlanWidget extends StatelessWidget {
       height: 48,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: AppColors.kSecondaryColor,
         border: Border.all(color: AppColors.kPrimaryColor, width: 2),
       ),
       child: TextButton(
