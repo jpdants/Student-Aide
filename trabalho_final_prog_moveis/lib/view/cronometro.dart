@@ -80,7 +80,7 @@ class _TimerScreenState extends State<TimerScreen> {
               'Cronômetro',
               style: TextStyle(
               fontFamily: 'avenir',
-              color: AppColors.kTextStyle,
+              color: Colors.white,
               fontSize: 24
               ),
             ),
@@ -98,7 +98,7 @@ class _TimerScreenState extends State<TimerScreen> {
           ],
         ),
       ),
-      
+      backgroundColor: AppColors.kSecondaryColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -120,6 +120,8 @@ class _TimerScreenState extends State<TimerScreen> {
                   child: Text(
                     _isRunning ? 'Pare' : 'Comece',
                     style: const TextStyle(
+                      fontFamily: 'avenir',
+                      color: Colors.white,
                       fontSize: 20,
                     )
                   ),
@@ -131,7 +133,14 @@ class _TimerScreenState extends State<TimerScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     backgroundColor: AppColors.kPrimaryColor
                   ),
-                  child: const Text('Recomece', style: TextStyle(fontSize: 20)),
+                  child: const Text(
+                    'Recomece', 
+                     style: TextStyle(
+                        fontFamily: 'avenir',
+                        color: Colors.white,
+                        fontSize: 20,
+                    )
+                  ),
                 ),
               ],
             ),

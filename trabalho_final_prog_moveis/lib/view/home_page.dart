@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
               'Home',
               style: TextStyle(
               fontFamily: 'avenir',
-              color: AppColors.kTextStyle,
+              color: Colors.white,
               fontSize: 24
               ),
             ),
