@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:trabalho_final_prog_moveis/constants/app_colors.dart';
 import 'package:trabalho_final_prog_moveis/view/alarme_screen.dart';
 import 'package:trabalho_final_prog_moveis/view/clock_view.dart';
+import 'package:trabalho_final_prog_moveis/view/tel_anota.dart';
 
 import 'cronometro.dart';
 
@@ -13,148 +14,133 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     var now = DateTime.now();
     var formattedTime = DateFormat('HH:mm').format(now);
     var formattedDate = DateFormat('EEE, d MMM').format(now);
-    
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.kPrimaryColor,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [            
-            const Text(
-              'Home',
-              style: TextStyle(
-              fontFamily: 'avenir',
-              color: Colors.white,
-              fontSize: 24
+        appBar: AppBar(
+          backgroundColor: AppColors.kPrimaryColor,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Home',
+                style: TextStyle(
+                    fontFamily: 'avenir', color: Colors.white, fontSize: 24),
               ),
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.person_2_outlined
+              IconButton(
+                icon: const Icon(Icons.person_2_outlined),
+                onPressed: () {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(builder: (context) => const Login()),
+                  //   );
+                },
               ),
-              onPressed: () {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => const Login()),
-              //   );
-              },
-            ),
-          ],
-        ),
-      ),
-      backgroundColor: AppColors.kSecondaryColor,
-      body: Row(
-        children: <Widget>[
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              buildElevatedButton('Alarme', Icons.access_alarm, const AlarmScreen()),
-              buildElevatedButton('Cronômetro', Icons.timer, const TimerScreen())
             ],
           ),
-          const VerticalDivider(
-            color: Color.fromARGB(255, 4, 88, 83),
-            width: 1,
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Flexible(
-                    flex: 1,
-                    fit: FlexFit.tight,
-                    child: Text(
-                      'Bons Estudos',
-                      style: TextStyle(
-                        fontFamily: 'avenir',
-                        color: AppColors.kTextStyle,
-                        fontSize: 24
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    flex: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          formattedTime,
-                          style: const TextStyle(
-                            fontFamily: 'avenir',
-                            color: AppColors.kTextStyle,
-                            fontSize: 48
-                          ),
-                        ),
-                        Text(
-                          formattedDate,
-                          style: const TextStyle(
-                            fontFamily: 'avenir',
-                            color: AppColors.kTextStyle,
-                            fontSize: 20
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Flexible(
-                    flex: 4,
-                    fit: FlexFit.tight,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: ClockView(
-                        size: 250,
-                      ),
-                    ),
-                  ),
-                  const Flexible(
-                    flex: 2,
-                    fit: FlexFit.tight,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                      Text(
-                        'Fuso Horário',
-                        style: TextStyle(
-                          fontFamily: 'avenir',
-                          color: AppColors.kTextStyle,
-                          fontSize: 24
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                    Row(
-                      children:<Widget>[
-                        Icon(
-                          Icons.language,
-                          color: AppColors.kTextStyle
-                          ),
-                          SizedBox(width: 16),
-                        Text(
-                          'Brasil',
-                          style: TextStyle(
-                            fontFamily: 'avenir',
-                            color: AppColors.kTextStyle,
-                            fontSize: 24
-                          ),
-                        )
-                      ]
-                    )
-                                  ]
-                                ),
-                  ),
-                              
-                ],
-              )
+        ),
+        backgroundColor: AppColors.kSecondaryColor,
+        body: Row(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                buildElevatedButton(
+                    'Alarme', Icons.access_alarm, const AlarmScreen()),
+                buildElevatedButton(
+                    'Cronômetro', Icons.timer, const TimerScreen()),
+                buildElevatedButton('Anotação', Icons.note_add, TelaAnota()),
+              ],
             ),
-          ),
-        ],
-      )
-    );
+            const VerticalDivider(
+              color: Color.fromARGB(255, 4, 88, 83),
+              width: 1,
+            ),
+            Expanded(
+              child: Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const Flexible(
+                        flex: 1,
+                        fit: FlexFit.tight,
+                        child: Text(
+                          'Bons Estudos',
+                          style: TextStyle(
+                              fontFamily: 'avenir',
+                              color: AppColors.kTextStyle,
+                              fontSize: 24),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              formattedTime,
+                              style: const TextStyle(
+                                  fontFamily: 'avenir',
+                                  color: AppColors.kTextStyle,
+                                  fontSize: 48),
+                            ),
+                            Text(
+                              formattedDate,
+                              style: const TextStyle(
+                                  fontFamily: 'avenir',
+                                  color: AppColors.kTextStyle,
+                                  fontSize: 20),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Flexible(
+                        flex: 4,
+                        fit: FlexFit.tight,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: ClockView(
+                            size: 250,
+                          ),
+                        ),
+                      ),
+                      const Flexible(
+                        flex: 2,
+                        fit: FlexFit.tight,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Fuso Horário',
+                                style: TextStyle(
+                                    fontFamily: 'avenir',
+                                    color: AppColors.kTextStyle,
+                                    fontSize: 24),
+                              ),
+                              SizedBox(height: 16),
+                              Row(children: <Widget>[
+                                Icon(Icons.language,
+                                    color: AppColors.kTextStyle),
+                                SizedBox(width: 16),
+                                Text(
+                                  'Brasil',
+                                  style: TextStyle(
+                                      fontFamily: 'avenir',
+                                      color: AppColors.kTextStyle,
+                                      fontSize: 24),
+                                )
+                              ])
+                            ]),
+                      ),
+                    ],
+                  )),
+            ),
+          ],
+        ));
   }
 
   Padding buildElevatedButton(String title, IconData icon, Widget screen) {
@@ -181,9 +167,9 @@ class _HomePageState extends State<HomePage> {
             Text(
               title ?? '',
               style: const TextStyle(
-                fontFamily:'avenir',
-                color: AppColors.kTextStyle,
-                fontSize: 14),
+                  fontFamily: 'avenir',
+                  color: AppColors.kTextStyle,
+                  fontSize: 14),
             ),
           ],
         ),
@@ -191,4 +177,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
