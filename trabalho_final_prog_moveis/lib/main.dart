@@ -1,4 +1,14 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:trabalho_final_prog_moveis/view/boas_vindas.dart';
+import 'package:trabalho_final_prog_moveis/view/login_view.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:trabalho_final_prog_moveis/view/registro_view.dart';
+import 'firebase_options.dart';
+
+>>>>>>> df535790b00af6a0185e4fe9cea37f09e9cbc4f8
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +41,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+<<<<<<< HEAD
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+=======
+      home: WelcomePage(),
+>>>>>>> df535790b00af6a0185e4fe9cea37f09e9cbc4f8
     );
   }
 }
