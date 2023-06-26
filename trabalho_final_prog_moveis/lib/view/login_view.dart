@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:trabalho_final_prog_moveis/constants/app_colors.dart';
+import 'package:trabalho_final_prog_moveis/view/home_page.dart';
 import 'package:trabalho_final_prog_moveis/view/registro_view.dart';
 import 'package:trabalho_final_prog_moveis/view/tela_branca.dart';
 
@@ -17,18 +18,19 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   String _email = '';
   String _password = '';
-  Color _highlightColor = Color.fromRGBO(47, 209, 197, 1);
+  Color _highlightColor = const Color.fromRGBO(47, 209, 197, 1);
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        UserCredential userCredential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _email,
           password: _password,
         );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => WelcomePage()),
+          MaterialPageRoute(builder: (context) => HomePage()),
         );
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
@@ -137,7 +139,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(_highlightColor),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(_highlightColor),
                   ),
                 ),
                 Row(
