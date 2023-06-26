@@ -5,7 +5,7 @@ import 'package:path/path.dart' as path;
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../components/botton_add_notacao.dart';
+import '../components/widget_anotacao.dart';
 import 'preencher_card_tela.dart';
 
 class HomePage extends StatefulWidget {
@@ -74,8 +74,8 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Confirmação'),
-          content: SingleChildScrollView(
+          title: const Text('Confirmação'),
+          content: const SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
                 Text('Deseja excluir esta anotação permanentemente?'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trabalho_final_prog_moveis/constants/app_colors.dart';
 
 class PreencherCardTela extends StatefulWidget {
   final Function(Map<String, dynamic>) adicionarAnotacao;
@@ -6,7 +7,7 @@ class PreencherCardTela extends StatefulWidget {
       editarAnotacao;
   final Map<String, dynamic>? anotacao;
 
-  PreencherCardTela({
+  const PreencherCardTela({super.key, 
     required this.adicionarAnotacao,
     required this.editarAnotacao,
     this.anotacao,
@@ -63,15 +64,19 @@ class _PreencherCardTelaState extends State<PreencherCardTela> {
       appBar: AppBar(
         title:
             Text(widget.anotacao != null ? 'Editar Anotação' : 'Nova Anotação'),
+        backgroundColor: AppColors.kPrimaryColor,
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            anoto(
+              "lib/assets/img/anotando.png",
+            ),
             TextField(
               controller: _disciplinaController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Disciplina',
               ),
             ),
@@ -83,14 +88,27 @@ class _PreencherCardTelaState extends State<PreencherCardTela> {
               ),
               maxLines: null,
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _salvarAnotacao,
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    AppColors.kPrimaryColor), // Replace with your desired color
+              ),
               child: Text(widget.anotacao != null ? 'Salvar' : 'Adicionar'),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Image anoto(String anotando) {
+    return Image.asset(
+      anotando,
+      fit: BoxFit.fitWidth,
+      width: 125,
+      height: 256,
     );
   }
 }
